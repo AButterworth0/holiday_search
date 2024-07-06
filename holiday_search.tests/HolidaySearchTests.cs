@@ -4,20 +4,13 @@ namespace holiday_search.tests
 {
     public class HolidaySearchTests
     {
-        //Customer 1
-        //Inputs:
-        //  Departing from: Manchester Airport(MAN)
-        //  Traveling to: Malaga Airport(AGP)
-        //  Departure Date: 2023/07/01 
-        //  Duration: 7 nights
-        //Expected:
-        //  Flight 2 and Hotel 9
-        [Fact]
-        public void GivenExactDepartingAirportReturnBestValueHoliday()
+
+        [Theory]
+        [InlineData("Flight 2 and Hotel 9", "MAN", "AGP", "2023/07/01", 7 )]
+        public void GivenExactDepartingAirportReturnBestValueHoliday(string expected, string departingFrom, string travellingTo, DateTime departureDate, int durationInNights)
         {
             //arrange
-            string expected = "Flight 2 and Hotel 9";
-            SearchInput searchInput = new SearchInput() { DepartingFrom = "MAN", TravellingTo = "AGP", DepartureDate = new DateTime(2023, 07, 01), DurationInNights = 7 };
+            SearchInput searchInput = new SearchInput();
             HolidaySearch holidaySearch = new HolidaySearch(searchInput);
 
             //act
