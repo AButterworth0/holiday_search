@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "holiday_search.tests", "holiday_search.tests\holiday_search.tests.csproj", "{D3F5C328-B41E-4FF1-949F-53D2D4B15A0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "holiday_search", "holiday_search\holiday_search.csproj", "{A5BED0A0-DC48-452A-8F6D-DABBA559D3D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D3F5C328-B41E-4FF1-949F-53D2D4B15A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3F5C328-B41E-4FF1-949F-53D2D4B15A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3F5C328-B41E-4FF1-949F-53D2D4B15A0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5BED0A0-DC48-452A-8F6D-DABBA559D3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BED0A0-DC48-452A-8F6D-DABBA559D3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BED0A0-DC48-452A-8F6D-DABBA559D3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BED0A0-DC48-452A-8F6D-DABBA559D3D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
