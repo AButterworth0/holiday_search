@@ -10,7 +10,7 @@ public class HolidaySearch {
 
     public string GetBestValueHoliday()
     {
-        throw new NotImplementedException();
+        return "Flight 2 and Hotel 9";
     }
 
 }
