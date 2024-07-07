@@ -20,6 +20,21 @@ namespace holiday_search.tests
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [InlineData("Flight 6 and Hotel 5", "Any London Airport", "PMI", "2023/06/15", 10)]
+        public void GivenGeneralAreaOfDepartingAirportReturnBestValueHoliday(string expected, string departingFrom, string travellingTo, DateTime departureDate, int durationInNights)
+        {
+            //arrange
+            SearchInput searchInput = new SearchInput() { DepartingFrom = departingFrom, TravellingTo = travellingTo, DepartureDate = departureDate, DurationInNights = durationInNights };
+            HolidaySearch holidaySearch = new HolidaySearch(searchInput);
+
+            //act
+            string actual = holidaySearch.GetBestValueHoliday();
+
+            //assert
+            Assert.Equal(expected, actual);
+        }
+
         //Customer 2
         //Inputs:
         //  Departing from: Any London Airport
