@@ -15,8 +15,10 @@ public class HolidaySearch
     {
         string? bestValueHoliday = null;
 
+        List<Airport> airports = GetAirports();
+
         Flight bestValueFlight = GetBestValueFlight();
-        Hotel bestValueHotel = GetBestValueHotel();
+        Hotel bestValueHotel = GetBestValueHotel();       
 
         if (this.searchInput.DepartingFrom == "MAN")
             bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
@@ -59,6 +61,13 @@ public class HolidaySearch
         Flight bestValueFlight = suitableFlights.FirstOrDefault();
 
         return bestValueFlight;
+    }
+
+    private List<Airport> GetAirports()
+    {
+        using FileStream openStream = File.OpenRead("C:\\Users\\Ariella\\source\\repos\\holiday_search\\holiday_search\\Data\\airports.json");
+        List<Airport> airports = JsonSerializer.Deserialize<List<Airport>>(openStream);
+        return airports;
     }
 
     private List<Flight> GetFlights()
