@@ -19,15 +19,33 @@ public class HolidaySearch
 
         if (IsAirportCode(searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
-
-        if (IsCity(searchInput.DepartingFrom))
+        else if (IsCity(searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlightFromCity(searchInput.DepartingFrom);
+        else
+            bestValueFlight = GetBestValueFlightFromAnyAirport();
 
         Hotel bestValueHotel = GetBestValueHotel();
 
         string bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
 
         return bestValueHoliday;
+    }
+
+    private Flight GetBestValueFlightFromAnyAirport()
+    {
+        List<Flight> availableFlights = GetFlights();
+
+        // get suitable flights
+        List<Flight> suitableFlights = availableFlights
+            .Where(flight => flight.To == searchInput.TravellingTo)
+            .Where(flight => flight.DepartureDate == searchInput.DepartureDate)
+            .OrderBy(flight => flight.Price)
+            .ToList();
+
+        // get the cheapest flight
+        Flight bestValueFlight = suitableFlights.FirstOrDefault();
+
+        return bestValueFlight;
     }
 
     private bool IsCity(string departingFrom)
