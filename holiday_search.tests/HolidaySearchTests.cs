@@ -10,7 +10,7 @@ namespace holiday_search.tests
         public void GivenExactDepartingAirportReturnBestValueHoliday(string expected, string departingFrom, string travellingTo, DateTime departureDate, int durationInNights)
         {
             //arrange
-            SearchInput searchInput = new SearchInput();
+            SearchInput searchInput = new SearchInput() { DepartingFrom = departingFrom, TravellingTo = travellingTo, DepartureDate = departureDate, DurationInNights = durationInNights };
             HolidaySearch holidaySearch = new HolidaySearch(searchInput);
 
             //act
