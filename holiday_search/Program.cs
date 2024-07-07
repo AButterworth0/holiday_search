@@ -7,34 +7,19 @@ Console.WriteLine("Hello, World!");
 
 public class HolidaySearch
 {
-
     private SearchInput searchInput;
+
 
     public HolidaySearch(SearchInput searchInput)
     {
         this.searchInput = searchInput;
-
     }
 
     public string GetBestValueHoliday()
     {
         string? bestValueHoliday = null;
 
-        // get available flights and hotels
-        List<Flight> availableFlights = GetFlights();
-        List<Hotel> availableHotels = GetHotels();
-
-        // get suitable flights
-        List<Flight> suitableFlights = availableFlights
-            .Where(flight => flight.From == this.searchInput.DepartingFrom)
-            .Where(flight => flight.To == this.searchInput.TravellingTo)
-            .Where(flight => flight.DepartureDate == this.searchInput.DepartureDate)
-            .OrderBy(flight => flight.Price)
-            .ToList();
-
-        // get the cheapest flight
-        Flight bestValueFlight = suitableFlights.FirstOrDefault();
-       
+        Flight bestValueFlight = GetBestValueFlight();
 
         if (this.searchInput.DepartingFrom == "MAN")
             bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel 9";
@@ -44,6 +29,24 @@ public class HolidaySearch
             bestValueHoliday = $"Flight 6 and Hotel 5";
 
         return bestValueHoliday;
+    }
+
+    private Flight GetBestValueFlight()
+    {
+        List<Flight> availableFlights = GetFlights();
+
+        // get suitable flights
+        List<Flight> suitableFlights = availableFlights
+            .Where(flight => flight.From == searchInput.DepartingFrom)
+            .Where(flight => flight.To == searchInput.TravellingTo)
+            .Where(flight => flight.DepartureDate == searchInput.DepartureDate)
+            .OrderBy(flight => flight.Price)
+            .ToList();
+
+        // get the cheapest flight
+        Flight bestValueFlight = suitableFlights.FirstOrDefault();
+
+        return bestValueFlight;
     }
 
     private List<Flight> GetFlights()
