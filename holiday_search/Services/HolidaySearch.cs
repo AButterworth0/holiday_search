@@ -15,15 +15,40 @@ public class HolidaySearch
     {
         string? bestValueHoliday = null;
 
-        Airport departureAirport = GetDepartureAirport();
-        Flight bestValueFlight = GetBestValueFlight(departureAirport.Code);
+        Flight bestValueFlight = null;
+
+        List<Airport> airports = GetAirports();
+        bool isCode = false;
+        bool isCity = false;
+
+        List<string> airportCodes = airports.Select(airport => airport.Code).ToList();
+        List<string> airportCities = airports.Select(airport => airport.City).ToList();
+
+        if (airportCodes.Contains(searchInput.DepartingFrom))
+            isCode = true;
+
+        if (airportCities.Contains(searchInput.DepartingFrom))
+            isCity = true;
+
+        if (isCode)
+            bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
+
+        if(isCity)
+        {
+            List<Airport> airportsFromCity = airports.Where(airport => airport.City == searchInput.DepartingFrom).ToList();
+            List<Flight> availableFlights = new List<Flight>();
+            foreach (Airport airport in airportsFromCity)
+            {
+                Flight flight = GetBestValueFlight(airport.Code);
+                availableFlights.Add(flight);
+            }
+            bestValueFlight = availableFlights.OrderBy(flight => flight.Price).First();
+        }
+
         Hotel bestValueHotel = GetBestValueHotel();
 
-        if (this.searchInput.DepartingFrom == "MAN")
-            bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
+        bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
 
-        if (this.searchInput.DepartingFrom == "London")
-            bestValueHoliday = $"Flight 6 and Hotel 5";
 
         return bestValueHoliday;
     }
