@@ -7,6 +7,7 @@ public class HolidaySearch
     private List<Airport> airports;
     public List<Flight> Results;
 
+
     public HolidaySearch(SearchInput searchInput)
     {
         this.searchInput = searchInput;
@@ -31,37 +32,6 @@ public class HolidaySearch
         return bestValueHoliday;
     }
 
-    private Flight GetBestValueFlight(string airportCode)
-    {
-        List<Flight> availableFlights = GetFlights();
-
-        // get suitable flights
-        List<Flight> suitableFlights = availableFlights
-            .Where(flight => flight.From == airportCode)
-            .Where(flight => flight.To == searchInput.TravellingTo)
-            .Where(flight => flight.DepartureDate == searchInput.DepartureDate)
-            .OrderBy(flight => flight.Price)
-            .ToList();
-
-        // get the cheapest flight
-        Flight bestValueFlight = suitableFlights.FirstOrDefault();
-
-        return bestValueFlight;
-    }
-
-    private Flight GetBestValueFlightFromCity(string City)
-    {
-        List<Airport> airportsFromCity = airports.Where(airport => airport.City == searchInput.DepartingFrom).ToList();
-        List<Flight> availableFlights = new List<Flight>();
-        foreach (Airport airport in airportsFromCity)
-        {
-            Flight flight = GetBestValueFlight(airport.Code);
-            availableFlights.Add(flight);
-        }
-        Flight bestValueFlight = availableFlights.OrderBy(flight => flight.Price).First();
-        return bestValueFlight;
-    }
-
     private Flight GetBestValueFlightFromAnyAirport()
     {
         List<Flight> availableFlights = GetFlights();
@@ -76,6 +46,31 @@ public class HolidaySearch
         // get the cheapest flight
         Flight bestValueFlight = suitableFlights.FirstOrDefault();
 
+        return bestValueFlight;
+    }
+
+    private bool IsCity(string departingFrom)
+    {
+        List<string> airportCities = airports.Select(airport => airport.City).ToList();
+        return airportCities.Contains(departingFrom);
+    }
+
+    private bool IsAirportCode(string departingFrom)
+    {
+        List<string> airportCodes = airports.Select(airport => airport.Code).ToList();
+        return airportCodes.Contains(departingFrom);
+    }
+
+    private Flight GetBestValueFlightFromCity(string City)
+    {
+        List<Airport> airportsFromCity = airports.Where(airport => airport.City == searchInput.DepartingFrom).ToList();
+        List<Flight> availableFlights = new List<Flight>();
+        foreach (Airport airport in airportsFromCity)
+        {
+            Flight flight = GetBestValueFlight(airport.Code);
+            availableFlights.Add(flight);
+        }
+        Flight bestValueFlight = availableFlights.OrderBy(flight => flight.Price).First();
         return bestValueFlight;
     }
 
@@ -103,16 +98,22 @@ public class HolidaySearch
         return hotel;
     }
 
-    private bool IsCity(string departingFrom)
+    private Flight GetBestValueFlight(string airportCode)
     {
-        List<string> airportCities = airports.Select(airport => airport.City).ToList();
-        return airportCities.Contains(departingFrom);
-    }
+        List<Flight> availableFlights = GetFlights();
 
-    private bool IsAirportCode(string departingFrom)
-    {
-        List<string> airportCodes = airports.Select(airport => airport.Code).ToList();
-        return airportCodes.Contains(departingFrom);
+        // get suitable flights
+        List<Flight> suitableFlights = availableFlights
+            .Where(flight => flight.From == airportCode)
+            .Where(flight => flight.To == searchInput.TravellingTo)
+            .Where(flight => flight.DepartureDate == searchInput.DepartureDate)
+            .OrderBy(flight => flight.Price)
+            .ToList();
+
+        // get the cheapest flight
+        Flight bestValueFlight = suitableFlights.FirstOrDefault();
+
+        return bestValueFlight;
     }
 
     private List<Airport> GetAirports()
@@ -136,3 +137,4 @@ public class HolidaySearch
         return hotels;
     }
 }
+
