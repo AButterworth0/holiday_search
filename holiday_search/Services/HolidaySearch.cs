@@ -35,14 +35,7 @@ public class HolidaySearch
 
         if(isCity)
         {
-            List<Airport> airportsFromCity = airports.Where(airport => airport.City == searchInput.DepartingFrom).ToList();
-            List<Flight> availableFlights = new List<Flight>();
-            foreach (Airport airport in airportsFromCity)
-            {
-                Flight flight = GetBestValueFlight(airport.Code);
-                availableFlights.Add(flight);
-            }
-            bestValueFlight = availableFlights.OrderBy(flight => flight.Price).First();
+            bestValueFlight = GetBestValueFlightFromCity(searchInput.DepartingFrom, airports);
         }
 
         Hotel bestValueHotel = GetBestValueHotel();
@@ -51,6 +44,19 @@ public class HolidaySearch
 
 
         return bestValueHoliday;
+    }
+
+    private Flight GetBestValueFlightFromCity(string City, List<Airport> airports)
+    {
+        List<Airport> airportsFromCity = airports.Where(airport => airport.City == searchInput.DepartingFrom).ToList();
+        List<Flight> availableFlights = new List<Flight>();
+        foreach (Airport airport in airportsFromCity)
+        {
+            Flight flight = GetBestValueFlight(airport.Code);
+            availableFlights.Add(flight);
+        }
+        Flight bestValueFlight = availableFlights.OrderBy(flight => flight.Price).First();
+        return bestValueFlight;
     }
 
     private Airport GetDepartureAirport()
@@ -93,6 +99,7 @@ public class HolidaySearch
 
         return bestValueFlight;
     }
+
 
     private List<Airport> GetAirports()
     {
