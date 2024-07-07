@@ -1,0 +1,44 @@
+[
+  {
+    "code": "MAN",
+    "name": "Manchester Airport",
+    "city": "Manchester",
+    "country": "UK"
+  },
+  {
+    "code": "TFS",
+    "name": "Tenerife South Airport",
+    "city": "Tenerife",
+    "country": "Spain"
+  },
+  {
+    "code": "AGP",
+    "name": "Málaga Airport",
+    "city": "Málaga",
+    "country": "Spain"
+  },
+  {
+    "code": "PMI",
+    "name": "Palma de Mallorca Airport",
+    "city": "Palma de Mallorca",
+    "country": "Spain"
+  },
+  {
+    "code": "LTN",
+    "name": "London Luton Airport",
+    "city": "London",
+    "country": "UK"
+  },
+  {
+    "code": "LGW",
+    "name": "London Gatwick Airport",
+    "city": "London",
+    "country": "UK"
+  },
+  {
+    "code": "LPA",
+    "name": "Gran Canaria Airport",
+    "city": "Gran Canaria",
+    "country": "Spain"
+  }
+]
