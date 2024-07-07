@@ -4,47 +4,45 @@ using System.Text.Json;
 public class HolidaySearch
 {
     private SearchInput searchInput;
+    private List<Airport> airports;
 
 
     public HolidaySearch(SearchInput searchInput)
     {
         this.searchInput = searchInput;
+        this.airports = this.GetAirports();
     }
 
     public string GetBestValueHoliday()
     {
-        string? bestValueHoliday = null;
-
         Flight bestValueFlight = null;
 
-        List<Airport> airports = GetAirports();
-
-        if (IsAirportCode(airports, this.searchInput.DepartingFrom))
+        if (IsAirportCode(searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
 
-        if (IsCity(airports, this.searchInput.DepartingFrom))
-            bestValueFlight = GetBestValueFlightFromCity(searchInput.DepartingFrom, airports);
+        if (IsCity(searchInput.DepartingFrom))
+            bestValueFlight = GetBestValueFlightFromCity(searchInput.DepartingFrom);
 
         Hotel bestValueHotel = GetBestValueHotel();
 
-        bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
+        string bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
 
         return bestValueHoliday;
     }
 
-    private bool IsCity(List<Airport> airports, string departingFrom)
+    private bool IsCity(string departingFrom)
     {
         List<string> airportCities = airports.Select(airport => airport.City).ToList();
         return airportCities.Contains(departingFrom);
     }
 
-    private bool IsAirportCode(List<Airport> airports, string departingFrom)
+    private bool IsAirportCode(string departingFrom)
     {
         List<string> airportCodes = airports.Select(airport => airport.Code).ToList();
         return airportCodes.Contains(departingFrom);
     }
 
-    private Flight GetBestValueFlightFromCity(string City, List<Airport> airports)
+    private Flight GetBestValueFlightFromCity(string City)
     {
         List<Airport> airportsFromCity = airports.Where(airport => airport.City == searchInput.DepartingFrom).ToList();
         List<Flight> availableFlights = new List<Flight>();
@@ -98,7 +96,6 @@ public class HolidaySearch
 
         return bestValueFlight;
     }
-
 
     private List<Airport> GetAirports()
     {
