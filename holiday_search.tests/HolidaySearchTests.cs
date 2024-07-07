@@ -21,8 +21,8 @@ namespace holiday_search.tests
         }
 
         [Theory]
-        [InlineData("Flight 6 and Hotel 5", "Any London Airport", "PMI", "2023/06/15", 10)]
-        public void GivenGeneralAreaOfDepartingAirportReturnBestValueHoliday(string expected, string departingFrom, string travellingTo, DateTime departureDate, int durationInNights)
+        [InlineData("Flight 6 and Hotel 5", "London", "PMI", "2023/06/15", 10)]
+        public void GivenCityOfDepartingAirportReturnBestValueHoliday(string expected, string departingFrom, string travellingTo, DateTime departureDate, int durationInNights)
         {
             //arrange
             SearchInput searchInput = new SearchInput() { DepartingFrom = departingFrom, TravellingTo = travellingTo, DepartureDate = departureDate, DurationInNights = durationInNights };

@@ -21,7 +21,7 @@ public class HolidaySearch
         if (this.searchInput.DepartingFrom == "MAN")
             bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
 
-        if (this.searchInput.DepartingFrom == "Any London Airport")
+        if (this.searchInput.DepartingFrom == "London")
             bestValueHoliday = $"Flight 6 and Hotel 5";
 
         return bestValueHoliday;
