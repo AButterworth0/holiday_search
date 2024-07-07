@@ -35,15 +35,6 @@ namespace holiday_search.tests
             Assert.Equal(expected, actual);
         }
 
-        //Customer 2
-        //Inputs:
-        //  Departing from: Any London Airport
-        //  Traveling to: Mallorca Airport (PMI)
-        //  Departure Date: 2023/06/15
-        //  Duration: 10 nights
-        //Expected:
-        //  Flight 6 and Hotel 5 
-
         //Customer 3
         //Inputs:
         //  Departing from: Any Airport 
