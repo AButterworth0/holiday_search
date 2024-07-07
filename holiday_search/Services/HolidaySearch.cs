@@ -18,28 +18,24 @@ public class HolidaySearch
         Flight bestValueFlight = null;
 
         List<Airport> airports = GetAirports();
-        bool isCity = false;
-       
-        List<string> airportCities = airports.Select(airport => airport.City).ToList();
-
-
-        if (airportCities.Contains(searchInput.DepartingFrom))
-            isCity = true;
 
         if (IsAirportCode(airports, this.searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
 
-        if(isCity)
-        {
+        if (IsCity(airports, this.searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlightFromCity(searchInput.DepartingFrom, airports);
-        }
 
         Hotel bestValueHotel = GetBestValueHotel();
 
         bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
 
-
         return bestValueHoliday;
+    }
+
+    private bool IsCity(List<Airport> airports, string departingFrom)
+    {
+        List<string> airportCities = airports.Select(airport => airport.City).ToList();
+        return airportCities.Contains(departingFrom);
     }
 
     private bool IsAirportCode(List<Airport> airports, string departingFrom)
@@ -68,13 +64,14 @@ public class HolidaySearch
         return departureAirport;
     }
 
-    private Hotel GetBestValueHotel() {
+    private Hotel GetBestValueHotel()
+    {
         List<Hotel> availableHotels = GetHotels();
 
         // get suitable hotels
         List<Hotel> suitableHotels = availableHotels
             .Where(hotel => hotel.LocalAirports.Contains(this.searchInput.TravellingTo))
-            .Where(hotel => hotel.ArrivalDate == this.searchInput.DepartureDate)      
+            .Where(hotel => hotel.ArrivalDate == this.searchInput.DepartureDate)
             .Where(hotel => hotel.Nights == this.searchInput.DurationInNights)
             .OrderBy(hotel => hotel.PricePerNight).ToList();
 
