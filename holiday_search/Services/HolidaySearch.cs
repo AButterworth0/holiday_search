@@ -5,7 +5,6 @@ public class HolidaySearch
 {
     private SearchInput searchInput;
     private List<Airport> airports;
-    public List<Flight> Results;
 
 
     public HolidaySearch(SearchInput searchInput)

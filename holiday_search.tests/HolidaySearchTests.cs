@@ -15,7 +15,7 @@ namespace holiday_search.tests
             HolidaySearch holidaySearch = new HolidaySearch(searchInput);
 
             //act
-            string actual = holidaySearch.Results.First().ToString();
+            string actual = holidaySearch.GetBestValueHoliday();
 
             //assert
             Assert.Equal(expected, actual);
