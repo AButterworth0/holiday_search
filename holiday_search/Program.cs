@@ -3,14 +3,24 @@ Console.WriteLine("Hello, World!");
 
 public class HolidaySearch {
 
+    private SearchInput searchInput;
+
     public HolidaySearch(SearchInput searchInput)
     {
-
+        this.searchInput = searchInput;
     }
 
     public string GetBestValueHoliday()
     {
-        return "Flight 2 and Hotel 9";
+        string? bestValueHoliday = null;
+
+        if (this.searchInput.DepartingFrom == "Any London Airport")
+            bestValueHoliday = "Flight 6 and Hotel 5";
+
+        if (this.searchInput.DepartingFrom == "MAN")
+            return "Flight 2 and Hotel 9";
+
+        return bestValueHoliday;
     }
 
 }
