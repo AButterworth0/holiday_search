@@ -16,15 +16,31 @@ public class HolidaySearch
         string? bestValueHoliday = null;
 
         Flight bestValueFlight = GetBestValueFlight();
+        Hotel bestValueHotel = GetBestValueHotel();
 
         if (this.searchInput.DepartingFrom == "MAN")
-            bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel 9";
-
+            bestValueHoliday = $"Flight {bestValueFlight.Id} and Hotel {bestValueHotel.Id}";
 
         if (this.searchInput.DepartingFrom == "Any London Airport")
             bestValueHoliday = $"Flight 6 and Hotel 5";
 
         return bestValueHoliday;
+    }
+
+    private Hotel GetBestValueHotel() {
+        List<Hotel> availableHotels = GetHotels();
+
+        // get suitable hotels
+        List<Hotel> suitableHotels = availableHotels
+            .Where(hotel => hotel.LocalAirports.Contains(this.searchInput.TravellingTo))
+            .Where(hotel => hotel.ArrivalDate == this.searchInput.DepartureDate)      
+            .Where(hotel => hotel.Nights == this.searchInput.DurationInNights)
+            .OrderBy(hotel => hotel.PricePerNight).ToList();
+
+        // get the cheapest hotel
+        Hotel hotel = suitableHotels.FirstOrDefault();
+
+        return hotel;
     }
 
     private Flight GetBestValueFlight()
