@@ -16,7 +16,7 @@ public class HolidaySearch
         string? bestValueHoliday = null;
 
         Airport departureAirport = GetDepartureAirport();
-        Flight bestValueFlight = GetBestValueFlight();
+        Flight bestValueFlight = GetBestValueFlight(departureAirport.Code);
         Hotel bestValueHotel = GetBestValueHotel();
 
         if (this.searchInput.DepartingFrom == "MAN")
@@ -51,13 +51,13 @@ public class HolidaySearch
         return hotel;
     }
 
-    private Flight GetBestValueFlight()
+    private Flight GetBestValueFlight(string airportCode)
     {
         List<Flight> availableFlights = GetFlights();
 
         // get suitable flights
         List<Flight> suitableFlights = availableFlights
-            .Where(flight => flight.From == searchInput.DepartingFrom)
+            .Where(flight => flight.From == airportCode)
             .Where(flight => flight.To == searchInput.TravellingTo)
             .Where(flight => flight.DepartureDate == searchInput.DepartureDate)
             .OrderBy(flight => flight.Price)
