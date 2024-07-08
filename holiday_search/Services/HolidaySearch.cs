@@ -22,6 +22,9 @@ public class HolidaySearch
         if (!DoesAirportExist(searchInput.DepartingFrom) && searchInput.DepartingFrom.ToLower() != "any")
             throw new Exception("Departure airport cannot be found");
 
+        if (!DoesAirportExist(searchInput.TravellingTo))
+            throw new Exception("Arrival airport cannot be found");
+
         if (IsAirportCode(searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
         else if (IsCity(searchInput.DepartingFrom))
