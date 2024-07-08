@@ -37,6 +37,21 @@ namespace holiday_search.tests
         }
 
         //given empty travelling to throw exception
+        [Fact]
+        public void GivenEmptyTravellingToThrowException()
+        {
+            //arrange
+            string expected = "Arrival airport cannot be found";
+            SearchInput searchInput = new SearchInput() { DepartingFrom = "MAN", TravellingTo = "", DepartureDate = new DateTime(2023, 7, 1), DurationInNights = 7 };
+            HolidaySearch holidaySearch = new HolidaySearch(searchInput);
+
+            //act
+            Exception exception = Assert.Throws<Exception>(() => holidaySearch.GetBestValueHoliday());
+
+            //assert         
+            Assert.Equal(expected, exception.Message);
+
+        }
 
         //given departure date in the past throw exception
 
