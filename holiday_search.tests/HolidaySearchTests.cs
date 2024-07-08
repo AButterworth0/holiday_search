@@ -50,12 +50,25 @@ namespace holiday_search.tests
 
             //assert         
             Assert.Equal(expected, exception.Message);
-
         }
 
         //given departure date in the past throw exception
 
         //given zero nights throw exception
+        [Fact]
+        public void GivenZeroNightsThrowException()
+        {
+            //arrange
+            string expected = "Duration cannot be zero";
+            SearchInput searchInput = new SearchInput() { DepartingFrom = "MAN", TravellingTo = "AGP", DepartureDate = new DateTime(2023, 7, 1), DurationInNights = 0 };
+            HolidaySearch holidaySearch = new HolidaySearch(searchInput);
+
+            //act
+            Exception exception = Assert.Throws<Exception>(() => holidaySearch.GetBestValueHoliday());
+
+            //assert         
+            Assert.Equal(expected, exception.Message);
+        }
 
     }
 }
