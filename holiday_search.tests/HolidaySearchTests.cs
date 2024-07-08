@@ -20,5 +20,10 @@ namespace holiday_search.tests
             //assert
             Assert.Equal(expected, actual);
         }
+
+        // given when no holiday found throw exception
+
+        // given when search input has null property  throw exception
+
     }
 }
