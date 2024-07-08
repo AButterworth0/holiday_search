@@ -11,6 +11,9 @@ public class HolidaySearch
 
     public HolidaySearch(SearchInput searchInput)
     {
+        if (searchInput.DurationInNights == 0)
+            throw new Exception("Duration cannot be zero");
+
         this.searchInput = searchInput;
         this.airports = this.GetAirports();
     }
