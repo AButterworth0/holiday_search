@@ -19,6 +19,7 @@ public class HolidaySearch
     {
         Flight bestValueFlight = null;
 
+
         if (!DoesAirportExist(searchInput.DepartingFrom) && searchInput.DepartingFrom.ToLower() != "any")
             throw new Exception("Departure airport cannot be found");
 
