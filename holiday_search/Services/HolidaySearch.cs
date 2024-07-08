@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
+using System.Transactions;
 
 public class HolidaySearch
 {
@@ -17,13 +19,8 @@ public class HolidaySearch
     {
         Flight bestValueFlight = null;
 
-        List<string> airportCodes = airports.Select((airport) => airport.Code).ToList();
-        List<string> airportCities = airports.Select((airport) => airport.City).ToList();
-        if (!airportCodes.Contains(searchInput.DepartingFrom)
-            && !airportCities.Contains(searchInput.DepartingFrom)
-            && searchInput.DepartingFrom.ToLower() != "any")
+        if (!DoesAirportExist(searchInput.DepartingFrom) && searchInput.DepartingFrom.ToLower() != "any")
             throw new Exception("Departure airport cannot be found");
-
 
         if (IsAirportCode(searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
@@ -142,6 +139,20 @@ public class HolidaySearch
         using FileStream openStream = File.OpenRead("C:\\Users\\Ariella\\source\\repos\\holiday_search\\holiday_search\\Data\\hotels.json");
         List<Hotel> hotels = JsonSerializer.Deserialize<List<Hotel>>(openStream);
         return hotels;
+    }
+
+    private bool DoesAirportExist(string airport)
+    {
+        List<string> airportCodes = airports.Select((airport) => airport.Code).ToList();
+        List<string> airportCities = airports.Select((airport) => airport.City).ToList();
+
+        if (airportCodes.Contains(airport))
+            return true;
+
+        if (airportCities.Contains(airport))
+            return true;
+
+        return false;         
     }
 }
 
