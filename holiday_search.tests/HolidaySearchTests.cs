@@ -21,13 +21,25 @@ namespace holiday_search.tests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void GivenEmptyDepartingFromThrowException()
+        {
+            //arrange
+            string expected = "Departure airport cannot be found";
+            SearchInput searchInput = new SearchInput() { DepartingFrom = "", TravellingTo = "AGP", DepartureDate = new DateTime(2023, 7, 1), DurationInNights = 7 };
+            HolidaySearch holidaySearch = new HolidaySearch(searchInput);
 
-        //given empty departing from throw exception
+            //act
+            Exception exception = Assert.Throws<Exception>(() => holidaySearch.GetBestValueHoliday());
+
+            //assert         
+            Assert.Equal(expected, exception.Message);
+        }
 
         //given empty travelling to throw exception
 
         //given departure date in the past throw exception
-        
+
         //given zero nights throw exception
 
     }
