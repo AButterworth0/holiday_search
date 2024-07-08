@@ -30,7 +30,7 @@ public class HolidaySearch
             throw new Exception("Arrival airport cannot be found");
 
         if (IsAirportCode(searchInput.DepartingFrom))
-            bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
+            bestValueFlight = GetBestValueFlightFromAirportCode(searchInput.DepartingFrom);
         else if (IsCity(searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlightFromCity(searchInput.DepartingFrom);
         else
@@ -78,7 +78,7 @@ public class HolidaySearch
         List<Flight> availableFlights = new List<Flight>();
         foreach (Airport airport in airportsFromCity)
         {
-            Flight flight = GetBestValueFlight(airport.Code);
+            Flight flight = GetBestValueFlightFromAirportCode(airport.Code);
             availableFlights.Add(flight);
         }
         Flight bestValueFlight = availableFlights.OrderBy(flight => flight.Price).First();
@@ -109,7 +109,7 @@ public class HolidaySearch
         return hotel;
     }
 
-    private Flight GetBestValueFlight(string airportCode)
+    private Flight GetBestValueFlightFromAirportCode(string airportCode)
     {
         List<Flight> availableFlights = GetFlights();
 
