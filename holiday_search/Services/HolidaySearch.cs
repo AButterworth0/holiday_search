@@ -17,6 +17,14 @@ public class HolidaySearch
     {
         Flight bestValueFlight = null;
 
+        List<string> airportCodes = airports.Select((airport) => airport.Code).ToList();
+        List<string> airportCities = airports.Select((airport) => airport.City).ToList();
+        if (!airportCodes.Contains(searchInput.DepartingFrom)
+            && !airportCities.Contains(searchInput.DepartingFrom)
+            && searchInput.DepartingFrom.ToLower() != "any")
+            throw new Exception("Departure airport cannot be found");
+
+
         if (IsAirportCode(searchInput.DepartingFrom))
             bestValueFlight = GetBestValueFlight(searchInput.DepartingFrom);
         else if (IsCity(searchInput.DepartingFrom))
