@@ -21,7 +21,14 @@ namespace holiday_search.tests
             Assert.Equal(expected, actual);
         }
 
-        // given when search input has null property throw exception
+
+        //given empty departing from throw exception
+
+        //given empty travelling to throw exception
+
+        //given departure date in the past throw exception
+        
+        //given zero nights throw exception
 
     }
 }
